@@ -40,7 +40,7 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <img 
-            src="/logo.png" 
+            src={`${import.meta.env.BASE_URL}logo.png`} 
             alt="Navi EXIM Logo" 
             className="h-16 md:h-20 w-auto object-contain mix-blend-multiply"
             onError={(e) => {
@@ -377,7 +377,7 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-2">
             <img 
-              src="/logo.png" 
+              src={`${import.meta.env.BASE_URL}logo.png`} 
               alt="Navi EXIM Logo" 
               className="h-20 md:h-24 w-auto object-contain mb-6 mix-blend-multiply"
               onError={(e) => {
