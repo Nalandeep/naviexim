@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Ship, ShieldCheck, Globe, MapPin, ArrowRight, Menu, X, CheckCircle2, FileText, Briefcase, Building2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import logo from '../logo.png';
+import logo from './assets/logo.png';
 
 export default function App() {
   return (
