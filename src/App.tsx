@@ -43,13 +43,7 @@ function Navbar() {
           <img 
             src={logo} 
             alt="Navi EXIM Logo" 
-            className="h-16 md:h-20 w-auto object-contain mix-blend-multiply"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-              if (e.currentTarget.nextElementSibling) {
-                (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
-              }
-            }}
+            className="h-16 md:h-20 w-auto object-contain"
           />
           <span className="font-bold text-xl tracking-tight uppercase hidden">Navi EXIM</span>
         </div>
@@ -380,13 +374,7 @@ function Footer() {
             <img 
               src={logo} 
               alt="Navi EXIM Logo" 
-              className="h-20 md:h-24 w-auto object-contain mb-6 mix-blend-multiply"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-                if (e.currentTarget.nextElementSibling) {
-                  (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'block';
-                }
-              }}
+              className="h-20 md:h-24 w-auto object-contain mb-6"
             />
             <span className="font-bold text-2xl tracking-tight uppercase mb-6 hidden">Navi EXIM</span>
             <p className="text-black/60 font-medium max-w-sm mb-6">
