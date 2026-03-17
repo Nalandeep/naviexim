@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Ship, ShieldCheck, Globe, MapPin, ArrowRight, Menu, X, CheckCircle2, FileText, Briefcase, Building2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import logo from '../logo.png';
 
 export default function App() {
   return (
@@ -40,7 +41,7 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <img 
-            src={`${import.meta.env.BASE_URL}logo.png`} 
+            src={logo} 
             alt="Navi EXIM Logo" 
             className="h-16 md:h-20 w-auto object-contain mix-blend-multiply"
             onError={(e) => {
@@ -237,7 +238,7 @@ function Products() {
     },
     {
       title: "Eco-Friendly Disposables",
-      image: "https://images.unsplash.com/photo-1610555356070-d1fb336f4ea4?q=80&w=1974&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1605600659873-d808a13e4d2a?q=80&w=2070&auto=format&fit=crop"
     },
     {
       title: "Agro-Commodities",
@@ -377,7 +378,7 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-2">
             <img 
-              src={`${import.meta.env.BASE_URL}logo.png`} 
+              src={logo} 
               alt="Navi EXIM Logo" 
               className="h-20 md:h-24 w-auto object-contain mb-6 mix-blend-multiply"
               onError={(e) => {
