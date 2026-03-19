@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Ship, ShieldCheck, Globe, MapPin, ArrowRight, Menu, X, CheckCircle2, FileText, Briefcase, Building2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import logo from './assets/logo-small.png';
+import logo from './assets/logo-final.png';
 
 export default function App() {
   return (
@@ -43,7 +43,7 @@ function Navbar() {
           <img 
             src={logo} 
             alt="Navi EXIM Logo" 
-            className="h-16 md:h-20 w-auto object-contain"
+            className="h-20 md:h-28 w-auto object-contain mix-blend-multiply"
           />
           <span className="font-bold text-xl tracking-tight uppercase hidden">Navi EXIM</span>
         </div>
@@ -374,7 +374,7 @@ function Footer() {
             <img 
               src={logo} 
               alt="Navi EXIM Logo" 
-              className="h-20 md:h-24 w-auto object-contain mb-6"
+              className="h-24 md:h-32 w-auto object-contain mb-6 mix-blend-multiply"
             />
             <span className="font-bold text-2xl tracking-tight uppercase mb-6 hidden">Navi EXIM</span>
             <p className="text-black/60 font-medium max-w-sm mb-6">
