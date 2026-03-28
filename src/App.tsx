@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
-import { Ship, ShieldCheck, Globe, MapPin, ArrowRight, Menu, X, CheckCircle2, FileText, Briefcase, Building2, Phone, Mail, Linkedin } from 'lucide-react';
+import { Ship, ShieldCheck, Globe, MapPin, ArrowRight, Menu, X, CheckCircle2, FileText, Briefcase, Building2, Phone, Mail, Linkedin, Leaf, Recycle, Target, Anchor } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import logo from './assets/logo-transparent.png';
 
@@ -670,4 +670,3 @@ function ContactModal({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
-
