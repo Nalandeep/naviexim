@@ -210,36 +210,46 @@ function TrustBar() {
 function Services() {
   const services = [
     {
-      icon: <Ship size={32} strokeWidth={1.5} />,
-      title: "Seamless Export",
-      description: "Full-stack logistics management from factory floor to international port."
+      icon: <Leaf size={32} strokeWidth={1.5} />,
+      title: "Agricultural & Organic Produce",
+      description: "Direct procurement of premium fruits, dry fruits, and organic staples from massive hubs like Mumbai's APMC market, ensuring farm-to-port freshness."
     },
     {
-      icon: <ShieldCheck size={32} strokeWidth={1.5} />,
-      title: "Regulatory Compliance",
-      description: "Expert handling of documentation, custom clearance, and trade regulations."
+      icon: <Recycle size={32} strokeWidth={1.5} />,
+      title: "Green Manufacturing & Textiles",
+      description: "Sourcing eco-friendly packaging, biodegradable alternatives, and sustainable textiles through our extensively vetted network of Indian manufacturers."
     },
     {
-      icon: <Globe size={32} strokeWidth={1.5} />,
-      title: "Global Sourcing",
-      description: "Connecting you with verified Indian manufacturers for textiles, agro-commodities, and more."
+      icon: <Target size={32} strokeWidth={1.5} />,
+      title: "Bespoke Custom Procurement",
+      description: "Have a specific eco-friendly product in mind? We conduct deep-dive research, background checks, and price negotiations to meet your exact volume needs."
+    },
+    {
+      icon: <Anchor size={32} strokeWidth={1.5} />,
+      title: "Strategic Port Logistics",
+      description: "Leveraging our proximity to Nhava Sheva (JNPT)—India's largest container port—we guarantee rapid turnaround times and transparent, friction-free freight movement."
     }
   ];
 
   return (
-    <section id="services" className="py-32 bg-[var(--color-paper)]">
+    <section id="services" className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <motion.h2 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-bold tracking-tight mb-20"
+          className="mb-20"
         >
-          End-to-End Export Solutions.
-        </motion.h2>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
+            Bespoke Sourcing. Sustainable Solutions.
+          </h2>
+          <p className="text-xl text-black/60 max-w-2xl font-medium leading-relaxed">
+            We replace the typical friction of global trade with rigorous groundwork and transparent, demand-driven exporting.
+          </p>
+        </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           {services.map((service, index) => (
             <motion.div 
               key={index}
@@ -247,11 +257,13 @@ function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="flex flex-col"
+              className="group p-8 md:p-10 rounded-3xl bg-[var(--color-paper)] border border-black/5 hover:border-black/20 hover:shadow-xl transition-all duration-500"
             >
-              <div className="mb-6 text-black">{service.icon}</div>
-              <h3 className="text-xl font-bold mb-4">{service.title}</h3>
-              <p className="text-black/60 leading-relaxed font-medium">{service.description}</p>
+              <div className="mb-8 inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white text-[var(--color-accent)] shadow-sm group-hover:scale-110 group-hover:bg-black group-hover:text-white transition-all duration-500">
+                {service.icon}
+              </div>
+              <h3 className="text-2xl font-bold mb-4 tracking-tight">{service.title}</h3>
+              <p className="text-black/70 leading-relaxed font-medium text-lg">{service.description}</p>
             </motion.div>
           ))}
         </div>
@@ -658,3 +670,4 @@ function ContactModal({ onClose }: { onClose: () => void }) {
     </div>
   );
 }
+
