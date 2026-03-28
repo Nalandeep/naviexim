@@ -1,26 +1,41 @@
-import { motion, useScroll, useTransform } from 'motion/react';
-import { Ship, ShieldCheck, Globe, MapPin, ArrowRight, Menu, X, CheckCircle2, FileText, Briefcase, Building2 } from 'lucide-react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
+import { Ship, ShieldCheck, Globe, MapPin, ArrowRight, Menu, X, CheckCircle2, FileText, Briefcase, Building2, Phone, Mail, Linkedin } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import logo from './assets/logo-transparent.png';
+import logo from './assets/logo-small.png';
 
 export default function App() {
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] selection:bg-[var(--color-accent)] selection:text-white overflow-x-hidden">
-      <Navbar />
+      <Navbar 
+        onOpenQuote={() => setIsQuoteModalOpen(true)} 
+        onOpenContact={() => setIsContactModalOpen(true)}
+      />
       <main>
         <Hero />
         <TrustBar />
         <Services />
         <Products />
-        <ValueProp />
-        <CTA />
+        <About />
+        <CTA onOpenQuote={() => setIsQuoteModalOpen(true)} />
       </main>
       <Footer />
+
+      <AnimatePresence>
+        {isQuoteModalOpen && (
+          <QuoteModal onClose={() => setIsQuoteModalOpen(false)} />
+        )}
+        {isContactModalOpen && (
+          <ContactModal onClose={() => setIsContactModalOpen(false)} />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
-function Navbar() {
+function Navbar({ onOpenQuote, onOpenContact }: { onOpenQuote: () => void, onOpenContact: () => void }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -53,13 +68,22 @@ function Navbar() {
           {['Home', 'About', 'Services', 'Contact'].map((item) => (
             <a
               key={item}
-              href={`#${item.toLowerCase()}`}
+              href={item === 'Contact' ? '#' : `#${item.toLowerCase()}`}
+              onClick={(e) => {
+                if (item === 'Contact') {
+                  e.preventDefault();
+                  onOpenContact();
+                }
+              }}
               className="text-sm font-medium text-black/70 hover:text-black transition-colors"
             >
               {item}
             </a>
           ))}
-          <button className="text-sm font-medium px-5 py-2.5 rounded-full border border-black/20 hover:bg-black hover:text-white transition-all duration-300">
+          <button 
+            onClick={onOpenQuote}
+            className="text-sm font-medium px-5 py-2.5 rounded-full border border-black/20 hover:bg-black hover:text-white transition-all duration-300"
+          >
             Request Quote
           </button>
         </nav>
@@ -79,14 +103,26 @@ function Navbar() {
           {['Home', 'About', 'Services', 'Contact'].map((item) => (
             <a
               key={item}
-              href={`#${item.toLowerCase()}`}
+              href={item === 'Contact' ? '#' : `#${item.toLowerCase()}`}
               className="text-lg font-medium text-black/80"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => {
+                if (item === 'Contact') {
+                  e.preventDefault();
+                  onOpenContact();
+                }
+                setMobileMenuOpen(false);
+              }}
             >
               {item}
             </a>
           ))}
-          <button className="mt-4 text-sm font-medium px-5 py-3 rounded-full border border-black bg-black text-white w-full">
+          <button 
+            onClick={() => {
+              onOpenQuote();
+              setMobileMenuOpen(false);
+            }}
+            className="mt-4 text-sm font-medium px-5 py-3 rounded-full border border-black bg-black text-white w-full"
+          >
             Request Quote
           </button>
         </div>
@@ -290,20 +326,50 @@ function Products() {
   );
 }
 
-function ValueProp() {
+function About() {
   return (
     <section id="about" className="py-32 bg-[var(--color-paper)]">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter leading-[1.1]">
-              Your Gateway to India's Gateway.
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter leading-[1.1] mb-8">
+              Your Eyes & Ears in India.
             </h2>
+            <div className="space-y-6 text-lg text-black/70 font-medium leading-relaxed">
+              <p>
+                Finding reliable, high-quality, eco-friendly products in a market as vast as India can be complex. Navi EXIM simplifies it.
+              </p>
+              <p>
+                Operating out of Mumbai—India's bustling trade capital—we act as your dedicated B2B sourcing partner. We don't just sell from a fixed catalog; we listen to your exact requirements and hit the ground running to find the perfect sustainable match for your business.
+              </p>
+            </div>
+            
+            <div className="mt-12 p-8 bg-black/5 rounded-3xl border border-black/10">
+              <h3 className="text-2xl font-bold tracking-tight mb-6">Company Credentials</h3>
+              <div className="space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 border-b border-black/5">
+                  <span className="text-black/60 font-medium">Company Name</span>
+                  <span className="font-bold text-black">Navi EXIM</span>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 border-b border-black/5">
+                  <span className="text-black/60 font-medium">IEC Code</span>
+                  <span className="font-bold text-black">CTUPG3828D</span>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3 border-b border-black/5">
+                  <span className="text-black/60 font-medium">GST Registration No</span>
+                  <span className="font-bold text-black">27CTUPG3828D1ZG</span>
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between py-3">
+                  <span className="text-black/60 font-medium">UDYAMI REG. NUMBER</span>
+                  <span className="font-bold text-black">UDYAMI-MH-18-0426826</span>
+                </div>
+              </div>
+            </div>
           </motion.div>
           
           <motion.div
@@ -311,13 +377,42 @@ function ValueProp() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
+            className="space-y-12"
           >
-            <p className="text-xl text-black/70 leading-relaxed font-medium">
-              Located in Mumbai, India's primary trade hub, Navi EXIM leverages proximity to Jawaharlal Nehru Port (JNPT) to ensure the fastest transit times and cost-efficient shipping logistics for our international partners.
-            </p>
-            <div className="mt-8 flex items-center gap-4 text-black font-bold">
-              <MapPin size={24} className="text-[var(--color-accent)]" />
-              <span>Mumbai, Maharashtra, India</span>
+            <div>
+              <h3 className="text-3xl font-bold tracking-tight mb-4">Demand-Driven Exporting</h3>
+              <p className="text-lg text-black/70 font-medium leading-relaxed">
+                We specialize in fulfilling custom buyer requirements with a strict focus on products that are kind to the environment. If you need it, we can source it.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-3xl font-bold tracking-tight mb-4">Why Partner With Us?</h3>
+              <ul className="space-y-4 text-lg text-black/70 font-medium">
+                <li className="flex gap-4">
+                  <CheckCircle2 className="shrink-0 text-[var(--color-accent)] mt-1" size={24} />
+                  <span><strong className="text-black">Deep-Dive Research:</strong> Our biggest strength is our ability to thoroughly investigate and vet suppliers. We do the heavy lifting of background checks, quality verification, and price negotiation so you don't have to.</span>
+                </li>
+                <li className="flex gap-4">
+                  <CheckCircle2 className="shrink-0 text-[var(--color-accent)] mt-1" size={24} />
+                  <span><strong className="text-black">Clear Communication:</strong> We believe in absolute transparency. From the initial inquiry to final delivery, you get clear, consistent updates without language or cultural barriers.</span>
+                </li>
+                <li className="flex gap-4">
+                  <CheckCircle2 className="shrink-0 text-[var(--color-accent)] mt-1" size={24} />
+                  <span><strong className="text-black">Strategic Logistics:</strong> Situated near Nhava Sheva (JNPT), India's largest container port, we ensure rapid turnaround times and efficient freight movement.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="p-8 bg-white rounded-3xl border border-black/10 shadow-sm">
+              <h3 className="text-2xl font-bold tracking-tight mb-2">The Organization</h3>
+              <div className="mt-6">
+                <h4 className="text-xl font-bold text-black">Nalandeep Govande</h4>
+                <p className="text-[var(--color-accent)] font-bold text-sm tracking-wider uppercase mb-4">Managing Director</p>
+                <p className="text-black/70 font-medium leading-relaxed">
+                  With over 5 years of corporate experience as a Business Analyst and an Engineering degree from Mumbai University, Nalandeep brings a highly analytical, data-driven approach to global sourcing. His expertise in deep research and strategic planning drives Navi EXIM's rigorous supplier vetting process.
+                </p>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -326,7 +421,7 @@ function ValueProp() {
   );
 }
 
-function CTA() {
+function CTA({ onOpenQuote }: { onOpenQuote: () => void }) {
   return (
     <section className="py-32 bg-[#111111] text-white">
       <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
@@ -356,7 +451,10 @@ function CTA() {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <button className="bg-[var(--color-accent)] text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-blue-600 transition-colors inline-flex items-center gap-2">
+          <button 
+            onClick={onOpenQuote}
+            className="bg-[var(--color-accent)] text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-blue-600 transition-colors inline-flex items-center gap-2"
+          >
             Get a Free Consultation
           </button>
         </motion.div>
@@ -415,5 +513,148 @@ function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+function QuoteModal({ onClose }: { onClose: () => void }) {
+  // Prevent scrolling when modal is open
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm" 
+        onClick={onClose} 
+      />
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        className="relative w-full max-w-xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+      >
+        <div className="p-6 border-b border-black/5 flex items-center justify-between sticky top-0 bg-white z-10">
+          <h3 className="text-2xl font-bold tracking-tight">Request a Quote</h3>
+          <button onClick={onClose} className="p-2 hover:bg-black/5 rounded-full transition-colors">
+            <X size={20} />
+          </button>
+        </div>
+        
+        <div className="p-6 overflow-y-auto">
+          <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); alert('Quote request submitted successfully!'); onClose(); }}>
+            <div>
+              <label className="block text-sm font-bold text-black/70 mb-1">Name</label>
+              <input type="text" required className="w-full px-4 py-3 rounded-xl border border-black/10 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all" placeholder="Your full name" />
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-bold text-black/70 mb-1">Mobile No</label>
+                <input type="tel" required className="w-full px-4 py-3 rounded-xl border border-black/10 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all" placeholder="+91 XXXXX XXXXX" />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-black/70 mb-1">Email</label>
+                <input type="email" required className="w-full px-4 py-3 rounded-xl border border-black/10 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all" placeholder="you@example.com" />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-bold text-black/70 mb-1">Address</label>
+              <textarea required rows={2} className="w-full px-4 py-3 rounded-xl border border-black/10 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all resize-none" placeholder="Your company address"></textarea>
+            </div>
+
+            <div>
+              <label className="block text-sm font-bold text-black/70 mb-1">Requirement</label>
+              <textarea required rows={3} className="w-full px-4 py-3 rounded-xl border border-black/10 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all resize-none" placeholder="Please describe the products you are looking for..."></textarea>
+            </div>
+
+            <div>
+              <label className="block text-sm font-bold text-black/70 mb-1">Quantity</label>
+              <input type="text" required className="w-full px-4 py-3 rounded-xl border border-black/10 focus:border-black focus:ring-1 focus:ring-black outline-none transition-all" placeholder="e.g., 1000 pieces, 20 FT Container" />
+            </div>
+
+            <div className="pt-4">
+              <button type="submit" className="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-black/80 transition-colors">
+                Submit Request
+              </button>
+            </div>
+          </form>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+function ContactModal({ onClose }: { onClose: () => void }) {
+  // Prevent scrolling when modal is open
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6">
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm" 
+        onClick={onClose} 
+      />
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+      >
+        <div className="p-6 border-b border-black/5 flex items-center justify-between bg-white">
+          <h3 className="text-2xl font-bold tracking-tight">Contact Us</h3>
+          <button onClick={onClose} className="p-2 hover:bg-black/5 rounded-full transition-colors">
+            <X size={20} />
+          </button>
+        </div>
+        
+        <div className="p-6 flex flex-col gap-4">
+          <a href="tel:+918692981240" className="flex items-center gap-4 p-4 rounded-xl border border-black/10 hover:border-black/30 hover:bg-black/5 transition-all group">
+            <div className="bg-black/5 p-3 rounded-full group-hover:bg-black group-hover:text-white transition-colors">
+              <Phone size={24} />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-black/50 uppercase tracking-wider mb-1">Mobile No</p>
+              <p className="font-medium text-lg text-black">+91 8692981240</p>
+            </div>
+          </a>
+
+          <a href="mailto:naviimports2010@gmail.com" className="flex items-center gap-4 p-4 rounded-xl border border-black/10 hover:border-black/30 hover:bg-black/5 transition-all group">
+            <div className="bg-black/5 p-3 rounded-full group-hover:bg-black group-hover:text-white transition-colors">
+              <Mail size={24} />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-black/50 uppercase tracking-wider mb-1">Email</p>
+              <p className="font-medium text-lg text-black break-all">naviimports2010@gmail.com</p>
+            </div>
+          </a>
+
+          <a href="https://www.linkedin.com/in/navi-exim-035b393b6/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl border border-black/10 hover:border-[#0A66C2]/30 hover:bg-[#0A66C2]/5 transition-all group">
+            <div className="bg-black/5 p-3 rounded-full group-hover:bg-[#0A66C2] group-hover:text-white transition-colors">
+              <Linkedin size={24} />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-black/50 uppercase tracking-wider mb-1">LinkedIn</p>
+              <p className="font-medium text-lg text-[#0A66C2]">Navi EXIM Profile</p>
+            </div>
+          </a>
+        </div>
+      </motion.div>
+    </div>
   );
 }
