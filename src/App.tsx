@@ -656,7 +656,7 @@ function ContactModal({ onClose }: { onClose: () => void }) {
             </div>
           </a>
 
-          <a href="https://www.linkedin.com/company/navi-exim/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl border border-black/10 hover:border-[#0A66C2]/30 hover:bg-[#0A66C2]/5 transition-all group">
+          <a href="https://www.linkedin.com/company/navi-exim" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 rounded-xl border border-black/10 hover:border-[#0A66C2]/30 hover:bg-[#0A66C2]/5 transition-all group">
             <div className="bg-black/5 p-3 rounded-full group-hover:bg-[#0A66C2] group-hover:text-white transition-colors">
               <Linkedin size={24} />
             </div>
