@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
 import { Ship, ShieldCheck, Globe, MapPin, ArrowRight, Menu, X, CheckCircle2, FileText, Briefcase, Building2, Phone, Mail, Linkedin } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import logo from './assets/logo-small.png';
+import logo from './assets/logo-transparent.png';
 
 export default function App() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
